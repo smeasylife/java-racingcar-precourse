@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 public class GameController {
-    public static ArrayList<Car> cars = new ArrayList();
+    private static ArrayList<Car> cars = new ArrayList();
     public static void getCars(){
         String input = Console.readLine();
         createCarArray(input);
@@ -15,8 +15,22 @@ public class GameController {
     public static void createCarArray(String input){
         String[] arr = input.split(",");
         for(String str: arr) {
+            checkLength(str);
+            checkSeparator(str);
             cars.add(new Car(str));
         }
-        System.out.println(cars.toString());
+    }
+    public static void checkSeparator(String str){
+        char[] arr = str.toCharArray();
+        for(char ch: arr){
+            if(!Character.isAlphabetic(ch)){
+                throw new IllegalArgumentException();
+            }
+        }
+    }
+    public static void checkLength(String str){
+        if (str.length() > 5){
+            throw new IllegalArgumentException();
+        }
     }
 }
