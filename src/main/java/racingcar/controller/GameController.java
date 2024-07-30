@@ -2,6 +2,7 @@ package racingcar.controller;
 
 import camp.nextstep.edu.missionutils.Console;
 import racingcar.Car;
+import racingcar.View.MessageView;
 
 import java.util.ArrayList;
 
@@ -17,9 +18,15 @@ public class GameController {
         String input = Console.readLine();
         String[] arr = input.split(",");
         for(String str: arr) {
-            checkLength(str);
-            checkSeparator(str);
-            cars.add(new Car(str));
+            try {
+                checkLength(str);
+                checkSeparator(str);
+                cars.add(new Car(str));
+            }catch (IllegalArgumentException e){
+                MessageView.nameErrorMessage();
+                createCarArray();
+            }
+
         }
     }
     public static void checkSeparator(String str){
@@ -37,14 +44,18 @@ public class GameController {
     }
     public static void getNumOfStep(){
         String strOfNum = Console.readLine();
-        checkIsNum(strOfNum);
-        numOfStep = Integer.parseInt(strOfNum);
+        try {
+            checkIsNum(strOfNum);
+            numOfStep = Integer.parseInt(strOfNum);
+        } catch (IllegalArgumentException e){
+            MessageView.numErrorMessage();
+            getNumOfStep();
+        }
     }
-
-    public static void checkIsNum(String str){
+    public static void checkIsNum(String str) {
         char[] arr = str.toCharArray();
-        for(char ch: arr){
-            if(!Character.isDigit(ch)){
+        for (char ch : arr) {
+            if (!Character.isDigit(ch)) {
                 throw new IllegalArgumentException();
             }
         }
