@@ -60,4 +60,9 @@ public class GameController {
             }
         }
     }
+    public static void step(){
+        for (Car car : cars){
+            car.moveForward();
+        }
+    }
 }
